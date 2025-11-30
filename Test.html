@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Deployment Test Site — Simple HTML/CSS</title>
+  <meta name="description" content="A small single-file HTML+CSS test site for deployment and testing. Includes layout, forms, responsiveness and a few interactive bits." />
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa7b2;
+      --accent:#5eead4; /* teal */
+      --accent-2:#60a5fa; /* blue */
+      --glass: rgba(255,255,255,0.03);
+      --radius: 12px;
+      --maxw:1100px;
+      --ff: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--ff);
+      background: linear-gradient(180deg, #071426 0%, #081422 40%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      line-height:1.45;
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:grid;place-items:center;font-weight:700;color:#04263a;
+      box-shadow:0 6px 18px rgba(6,10,18,0.6);
+    }
+    .brand h1{font-size:18px;margin:0}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    nav{display:flex;gap:12px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px}
+    nav a:hover{color:var(--accent);background:var(--glass)}
+
+    main{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:26px;border-radius:18px;box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    }
+
+    .hero{
+      display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:center;
+    }
+    .headline{padding:6px 8px;border-radius:10px;background:rgba(255,255,255,0.02);display:inline-block;color:var(--accent);font-weight:600;margin-bottom:12px}
+    h2{margin:0 0 12px 0;font-size:28px}
+    p.lead{margin:0 0 18px 0;color:var(--muted);max-width:62ch}
+
+    .cta-group{display:flex;gap:12px}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#04263a;padding:10px 16px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;color:var(--accent-2);border:1px solid rgba(255,255,255,0.04)}
+
+    /* right card */
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .stats{display:flex;gap:12px;justify-content:space-between}
+    .stat{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.02)}
+    .stat h3{margin:0;font-size:18px}
+    .stat p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    /* features */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+    .feature{background:var(--card);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .feature h4{margin:0 0 6px 0}
+    .feature p{margin:0;color:var(--muted);font-size:13px}
+
+    /* deployment panel */
+    .deploy{
+      margin-top:18px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px dashed rgba(255,255,255,0.03);
+    }
+    code{background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:6px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace}
+
+    /* contact */
+    .contact{display:flex;gap:12px;margin-top:18px}
+    .contact form{flex:1;display:flex;flex-direction:column;gap:8px}
+    input,textarea,select{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:10px;color:inherit}
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.25)}
+    .muted{color:var(--muted);font-size:13px}
+
+    footer{margin-top:20px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    /* responsiveness */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .features{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      body{padding:20px}
+      .features{grid-template-columns:1fr}
+      nav{display:none}
+      .brand p{display:none}
+    }
+
+    /* small helper */
+    .pill{display:inline-block;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">DT</div>
+        <div>
+          <h1>Deployment Test</h1>
+          <p>Single-file HTML/CSS test site</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#deploy">Deploy</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="headline">Ready to deploy</div>
+          <h2>Simple test site for deployment & smoke testing</h2>
+          <p class="lead">This single-file site includes a responsive layout, sample components, a contact form and a deploy panel with sample commands so you can quickly test hosting, headers, redirects and previews.</p>
+
+          <div class="cta-group">
+            <button class="btn" onclick="alert('Deployed! (demo)')">Run smoke test</button>
+            <button class="btn ghost" onclick="document.getElementById('deploy').scrollIntoView({behavior:'smooth'})">How to deploy</button>
+          </div>
+
+          <div class="features" id="features">
+            <div class="feature">
+              <h4>Responsive</h4>
+              <p>Grid-based layout adapts from desktop to mobile.</p>
+            </div>
+            <div class="feature">
+              <h4>Fast</h4>
+              <p>No external assets — single file for quick uploads and testing.</p>
+            </div>
+            <div class="feature">
+              <h4>Test data</h4>
+              <p>Sample stats and a contact form to validate POSTs or static hosting behaviour.</p>
+          </div>
+          </div>
+
+          <div class="deploy" id="deploy">
+            <strong>Quick deploy commands</strong>
+            <p class="muted">Copy this file to <code>index.html</code> and use any static host.</p>
+            <pre style="white-space:pre-wrap;margin:8px 0;padding:10px;border-radius:8px;background:rgba(0,0,0,0.25)"><code># GitHub Pages (one-time)
+git init
+git add index.html
+git commit -m "add deployment test"
+git branch -M main
+git remote add origin &lt;your-repo-url&gt;
+git push -u origin main
+
+# Deploy with Vercel
+vercel deploy --prod
+
+# Netlify (drag & drop or CLI)
+netlify deploy --prod
+</code></pre>
+            <p class="muted">Tip: For GitHub Pages ensure your repo has a branch named <code>gh-pages</code> or use the Pages settings.</p>
+          </div>
+        </div>
+
+        <aside class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div>
+              <h3>Site status</h3>
+              <p class="muted">Uptime: <span class="pill">100%</span></p>
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:800;font-size:20px">4.9ms</div>
+              <div class="muted">Response</div>
+            </div>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <h3>Pages</h3>
+              <p>1 (single-file)</p>
+            </div>
+            <div class="stat">
+              <h3>Assets</h3>
+              <p>0 external</p>
+            </div>
+            <div class="stat">
+              <h3>Tests</h3>
+              <p>Smoke &amp; load ready</p>
+            </div>
+          </div>
+
+          <div class="contact" id="contact">
+            <form onsubmit="fakeSubmit(event)">
+              <input type="text" placeholder="Your name" required />
+              <input type="email" placeholder="Email" required />
+              <textarea rows="3" placeholder="Message"></textarea>
+              <div style="display:flex;gap:8px;justify-content:flex-end">
+                <button type="submit" class="btn">Send</button>
+              </div>
+            </form>
+          </div>
+        </aside>
+      </section>
+
+      <section style="margin-top:18px">
+        <h3>Extra checks</h3>
+        <ul class="muted">
+          <li>Headers — test caching, CSP, and security headers on your host</li>
+          <li>Redirects — ensure index.html serves for deep links</li>
+          <li>HTTPS — verify certificate chain and HSTS if needed</li>
+        </ul>
+      </section>
+
+      <footer>
+        <div>© Deployment Test • Single-file</div>
+        <div class="muted">Built for quick hosting checks</div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    function fakeSubmit(e){
+      e.preventDefault();
+      const f = e.target;
+      const name = f.querySelector('input[type=text]').value || 'friend';
+      alert('Thanks, '+name+" — form submitted (demo). Use a server or service to test real POST behaviour.");
+      f.reset();
+    }
+  </script>
+</body>
+</html>
